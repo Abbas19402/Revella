@@ -33,7 +33,7 @@ const Login = () => {
 
   const postApi = async(login)=>{
     console.log("Fetching Login API");
-    await axios.post('http://easybuy.servepratham.com/api/v2/login',login)
+    await axios.post('https://easybuy.servepratham.com/api/v2/login',login)
     .then((response)=> {
       localStorage.setItem("username" , response.data.data.user.name);
       console.log("Login API Fetched Successfully");
@@ -51,7 +51,7 @@ const Login = () => {
     _formData.append("dialing_code",login.dialing_code)
     _formData.append("otp",login.otp)
     _formData.append("phone",login.phone)
-    await axios.post('http://easybuy.servepratham.com/api/v2/otp/verify',_formData)
+    await axios.post('https://easybuy.servepratham.com/api/v2/otp/verify',_formData)
     .then(()=>{
       console.log("OTP Vefified Successfully");
     })
