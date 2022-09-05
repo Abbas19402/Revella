@@ -29,6 +29,7 @@ const MainPage = () => {
   },[])
 
   const render = value => {
+    console.log("RenderId = ", value);
     navigate('/product',{state:{
       data: value,
     }})

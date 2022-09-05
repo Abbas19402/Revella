@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux'
 import Loader from '../../Assets/Loader';
 import { useLocation } from 'react-router';
 import axios from 'axios';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const Trending = (props) => {
   const location = useLocation();
@@ -22,32 +24,9 @@ const Trending = (props) => {
   const [ error , setError ] = useState(false)
   const [ userId , setUserId ] = useState()
   
-  // ****** API ******
-  // const getData = async()=> {
-  //     const response = await axios({
-  //       url: "https://admin.nily.com.br/api/v2/user/homepage",
-  //       method: "GET",
-  //       headers: {
-  //         authorization : location.state.token
-  //       }
-  //     })
-  //     const filteredArray = response.data.data.featured.filter((item) => item.offer_price != null ) 
-  //     setData(filteredArray)
-  //     setIsLoading(false)
-  // }
   // ****** API ******  
   const getData = async () => {
-    let _formData=new FormData();
-    _formData.append('location_lat',24.5871289);
-    _formData.append('location_long',73.6969651);
-    _formData.append('id', 1) //
-    _formData.append('type', 'new-arrivals')//
-    _formData.append("start_price" , 0);
-    _formData.append("end_price" , 1000)
-    _formData.append("start_discount" , 0)
-    _formData.append("end_discount" , 1000)
-
-    await axios.post("https://admin.nily.com.br/api/v2/user/category/product",_formData)
+    await axios.get("https://fashion-admin.servepratham.com/api/v2/user/sorting/trending-product/most-popular")
     .then((res)=>{
       console.log("NewArrival response = ",res);
       let filteredArray = res.data.data.data.filter(item => item.offer_price != null);
@@ -63,17 +42,6 @@ const Trending = (props) => {
       setUserId(138)
       getData();
   },[])
-
-  if(isLoading) {
-    return(
-      <Loader/>
-    )
-  } else if(error) {
-      <div>
-          {console.log("There is an error")}
-          Error
-      </div>
-  }
 
   // ****** Functions ******
   const LoadData = ()=> {
@@ -108,21 +76,21 @@ const Trending = (props) => {
             {data.map((item,key)=>(
               <>
                 <div id="card" 
-                className='z-20 w-[20rem] mx-5 landscape:Justify-center landscape:w-[15rem] landscape:xl:w-[16rem] landscape:2xl:w-[25rem] lg:w-[70vw] h-fit border-2 m-5 overflow-hidden border-white bg-white hover:bg-black transition duration-1000 hover:scale-105 hover:shadow-2xl hover:border-black rounded-lg border-b-2 border-x-2'
+                className={`z-20 w-[20rem] mx-5 landscape:Justify-center landscape:w-[15rem] landscape:xl:w-[16rem] landscape:2xl:w-[25rem] lg:w-[70vw] ${!isLoading ? 'h-fit' : 'h-[32vh]'} border-2 m-5 overflow-hidden border-white bg-white hover:bg-black transition-all duration-1000 hover:scale-105 hover:shadow-2xl hover:border-black rounded-lg border-b-2 border-x-2`}
                 onClick={()=>props.onclick(item,userId)}
                 >
-                  <div key={key} id="image" className='p-5 bg-white' style={{height:"60%"}}>
+                  {!isLoading ?<div key={key} id="image" className='p-5 bg-white' style={{height:"60%"}}>
                     <img src={item.ImageSrc} alt="store" style={{height:"40vh" , width:"100%" }}/>
-                  </div>
+                  </div> : <Skeleton style={{height:"30vh"}}/>}
                   <div className='relative'>
-                    <div id="title" className='oveflow-hidden mt-4 px-5 hover:cursor-pointer pt-1'>
+                    {!isLoading? <div id="title" className='oveflow-hidden mt-4 px-5 hover:cursor-pointer pt-1'>
                       <span className='text-sm text-gray-500 font-medium'>{item.product_name.substring(0, MAX_LENGTH)}...</span>
-                    </div>
-                    <div id="priceTag" className='px-5 relative hover:cursor-pointer pb-2'>
+                    </div> : <Skeleton width="60%"/>}
+                    {!isLoading ? <div id="priceTag" className='px-5 relative hover:cursor-pointer pb-2'>
                       <div id="offerPrice" className='mr-4'>
                         <span className='text-md text-sky-700'>${item.offer_price}</span>
                       </div>
-                    </div>
+                    </div> : <Skeleton width='30%'/>}
                   </div>
                 </div>
               </>

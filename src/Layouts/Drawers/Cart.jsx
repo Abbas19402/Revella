@@ -12,7 +12,6 @@ const Cart = () => {
   const navigate = useNavigate();
   
   // ****** States ******
-  const [ cartArray , setCartArray ] = useState([]); 
   const [ data , setData ] = useState();
   const {  setSidebarOf , totalCost } = bindActionCreators(
     actionCreators,
@@ -26,7 +25,7 @@ const Cart = () => {
   const getCart = async()=> {
     let _formData = new FormData();
     _formData.append('session_id',138);
-    await axios.post(`https://admin.nily.com.br/api/v2/user/cart/list`,_formData)
+    await axios.post(`https://fashion-admin.servepratham.com/api/v2/user/cart/list`,_formData)
     .then((res)=> {
       console.log("API Fetched and Response is : ",res.data.data);
       setData(res.data.data)
@@ -100,8 +99,6 @@ const Cart = () => {
                     <button 
                     className='hover:bg-black bg-white text-black hover:text-white transition duration-700 border-2 font-extralight py-1 my-1 px-4 mx-2 w-[12vh]'
                     onClick={()=> {
-                      console.log("Remove button clicked")
-                      console.log("cartId = ",item)
                       removeItem(item.id)
                     }}
                     >

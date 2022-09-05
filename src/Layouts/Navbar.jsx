@@ -16,7 +16,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Logo from '../Assets/Images/Logos/logo.png'
+import Logo from '../Assets/Images/Logos/ecommerce.png'
 
 const Navbar = () => {
   const [ userName , setUserName ] = useState();  
@@ -77,121 +77,15 @@ const Navbar = () => {
   return (
     <div
       className={`relative bg-white h-full flex flex-row justify-between items-center`}
-    >
-      <div id="ham" className="mx-3 block lg:hidden z-50">
-        <button
-          onClick={() => {
-            setShowNav(!showNav);
-            colNav();
-          }}
-        >
-          <Hamburger
-            size={25}
-            rounded
-            duration={0.7}
-            toggle={setOpen}
-            toggled={isOpen}
-            color={"gray"}
-          />
-        </button>
-      </div>
-      <div
-        id="contents"
-        className="items-center grid w-fit p-3 h-full basis-1/4"
-      >
-        <div id="logo" className="hidden lg:block">
-          <Link to="/">
-            <div id="textLogo" className="overflow-hidden">
-              <img src={Logo} alt="justbuyit" className="bg-white w-[6em]"/>
-              {/* <span className="text-xl md:text-2xl lg:text-3xl font-Lato">JustBuyIt</span> */}
-            </div>
-          </Link>
-        </div>
-      </div>
-      <div id="Nav" className="basis-1/2 items-center">
-        <nav>
-          <ul className="mx-6 hidden lg:flex flex-row flex-nowrap justify-center">
-            {navbarArray.map((ele, keyin) => (
-              <li
-                key={ele.navId}
-                className={`mx-3 font-light text-black hover:cursor-pointer hover:scale-105 transition-all p-1 hover:text-gray-500 hover:font-normal rounded-md
-                ${
-                  active && activeColor.id === keyin
-                    ? `${activeColor.data}`
-                    : ""
-                }`}
-                onClick={(event) => {
-                  event.preventDefault();
-                  handlePopoverOpen(event, keyin);
-                }}
-                onDoubleClick={(event)=> {
-                  event.preventDefault();
-                  handlePopoverClose(event)
-                }}
-              >
-                  {ele.navName}
-              </li>
-            ))}
-          </ul>
-          <Popover
-            id="mouse-over-popover"
-            sx={{
-              pointerEvents: "none"
-            }}
-            open={open}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-            
-            disableRestoreFocus
-          >
-            {navbarArray.map((ele) =>
-              ele.navId - 1 === globalKey ? ele.navElementName : ""
-            )}
-          </Popover>
-        </nav>
-        {/* <--- Collapsed Navbar ---> */}
-        <div
-          id="dropDownNavigation"
-          className={`bg-white absolute w-screen ${dropNav} left-0 z-40 transition-all duration-1000 border-b-2 border-b-gray-500`}
-        >
-          <div
-            className={`grid justify-items-center items-center bg-transparent h-full px-1 p-7`}
-          >
-            <div
-              className={`px-14 flex flex-col p-5 items-center justify-items-center h-full w-full rounded-md`}
-            >
-              {navbarArray.map((ele, keyin) => (
-                <div
-                  key={ele.navId}
-                  className={`my-1 p-1 font-normal text-xl text-yellow-600 w-full text-start rounded-sm ${
-                    active && activeColor.id === keyin
-                      ? `${activeColor.data}`
-                      : ""
-                  } `}
-                  onMouseEnter={(event) => {
-                    handlePopoverOpen(event, keyin);
-                  }}
-                  onMouseLeave={handlePopoverClose}
-                >
-                  <span>{ele.navName}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+    > 
+      <div id="Nav" className="basis-1/2 mx-2 items-center">
+        <span className="text-center font-lobster text-3xl md:text-4xl lg:text-5xl">Revella</span>
         {/* <--- / of Collapsed Navbar ---> */}
       </div>
       <Link to="/">
         <div id="logo" className="lg:hidden flex w-full justify-end px-4">
           <div id="textLogo" className="overflow-hidden">
-            <img src={Logo} alt="justbuyit" className="bg-white w-[6em]"/>
+            <img src={Logo} alt="justbuyit" className="bg-white w-[5em] lg:w-[6em]"/>
           </div>
         </div>
       </Link>
@@ -212,13 +106,6 @@ const Navbar = () => {
               </IconButton>
             </li>
           ))}
-          <li id="Wishlist/Favorite">
-            <Link to = "/wish">
-              <IconButton>
-                <FavoriteIcon />
-              </IconButton>
-            </Link>
-          </li>
           <li id="Profile">
             <IconButton
               id="basic-menu"

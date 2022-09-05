@@ -14,7 +14,7 @@ const Footer = () => {
         <div id="logoxContactDet" className="flex flex-col col-span-3 p-5">
           <div id="logo" className="block">
             <div id="textLogo" className="overflow-hidden px-16 my-3 text-center md:text-left">
-              <span className="text-2xl md:text-2xl lg:text-3xl font-medium">Just BuyIt</span>
+              <span className="text-2xl md:text-2xl lg:text-3xl font-lobster">Revella</span>
             </div>
           </div>
           <div id="contactDet" className='flex flex-col justify-center'>

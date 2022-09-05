@@ -72,7 +72,7 @@ const Product = (props) => {
 
   const getData = async() => {
     await axios({
-      url: `https://admin.nily.com.br/api/v2/user/productById/${location.state.data.id}`,
+      url: `https://fashion-admin.servepratham.com/api/v2/user/productById/${location.state.data.id}`,
       method: "GET"
     })
     .then((res)=>{
@@ -137,13 +137,9 @@ const Product = (props) => {
     
   }
 
-  const refreshPage = ()=> {
-    window.location.reload();
-  }
-
   const addCart = async()=> {
     // API Way -->
-    await axios.post("https://admin.nily.com.br/api/v2/user/cart/save" ,_formData )
+    await axios.post("https://fashion-admin.servepratham.com/api/v2/user/cart/save" ,_formData )
     .then((res)=> {
       console.log("Response = ",res);
       setData(res)
@@ -151,20 +147,6 @@ const Product = (props) => {
         qty: count,
         pageSection: 'addToCart'
       }})
-      refreshPage();
-    })
-    .catch((err)=> {
-      console.log(err);
-      setShowClearCartModal(true)
-      handleOpen()
-      setErrorMessage(err.response.data.errors)
-    })
-  }
-
-  const sellorNotSame = async()=> {
-    await axios.post("https://admin.nily.com.br/api/v2/user/cart/seller-not-same",_formData)
-    .then(()=>{
-      console.log("Other Items are removed Successfully!")
     })
     .catch((err)=> {
       console.log(err);
@@ -213,61 +195,6 @@ const Product = (props) => {
                 }}>
                   <span>Add to Cart</span>
               </button>
-            </div>
-            <div id="cartClearModal">
-            {showClearCartModal ? (
-              <>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={style}>
-                    <div className='w-fit h-[15vh] flex text-justify items-center px-10 my-2'>
-                        <span className='text-lg font-medium text-red-700'>{errorMessage}</span>
-                    </div>
-                    <div id="buttons" className='relative bottom-0 flex flex-row justify-end'>
-                      <div id="buttons" className='mx-3'>
-                        <Button variant='outlined' onClick={handleClose}>Close</Button>
-                      </div>
-                      <div id="buttons">
-                        <Button variant='outlined' onClick={()=> {
-                          handleClose();
-                          handleClickSnackBar();
-                          sellorNotSame();
-                        }}>Remove & Add</Button>
-                      </div>
-                    </div>
-                  </Box>
-                </Modal>
-
-                <div>
-                  <Snackbar
-                    open={openSnackBar}
-                    autoHideDuration={6000}
-                    onClose={handleCloseSnackBar}
-                    message="Items From Cart removed Successfully"
-                    action={action}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className='hidden'>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                      <div>Hello this is a modal</div>
-                    </Box>
-                  </Modal>
-                </div>
-              </>
-            )}
             </div>
           </div>
         </div>

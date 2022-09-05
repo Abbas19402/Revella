@@ -22,7 +22,7 @@ const Buy = () => {
   var subTotal = 0;
 
   // ****** API & API States ******
-  const [ data , setData ] = useState();
+  const [ data , setData ] = useState([]);
   const [ rate , setRate ] = useState();
   const [ discount , setDiscount ] = useState();
   const [ tax , setTax ] = useState();
@@ -43,8 +43,9 @@ const Buy = () => {
     let _formData = new FormData();
     _formData.append('session_id',138);
 
-    await axios.post(`https://admin.nily.com.br/api/v2/user/cart/list`,_formData)
+    await axios.post(`https://fashion-admin.servepratham.com/api/v2/user/cart/list`,_formData)
     .then((res)=> {
+      console.log(res.data.data);
       setData(res.data.data);
       res.data.data.map((item , key)=> {
         subTotal = subTotal + parseInt(item.get_product_data.offer_price) * parseInt(item.quantity);
@@ -63,10 +64,9 @@ const Buy = () => {
   const removeItem = async(cartItemId)=> {
     let _formData = new FormData();
     _formData.append("session_id" , 138)
-    await axios.delete(`https://admin.nily.com.br/api/v2/user/cart/remove/${cartItemId}`,_formData)
+    await axios.delete(`https://fashion-admin.servepratham.com/api/v2/user/cart/remove/${cartItemId}`,_formData)
     .then((res)=> {
-      console.log(res);
-      window.location.reload();
+      window.location.reload()
     })
     .catch((err)=> {
       console.log(err); 
@@ -77,7 +77,7 @@ const Buy = () => {
     let formData = new FormData();
     formData.append("id" , itemId)
     formData.append("quantity" , qty)
-    await axios.post(`https://admin.nily.com.br/api/v2/user/cart/update`,formData)
+    await axios.post(`https://fashion-admin.servepratham.com/api/v2/user/cart/update`,formData)
     .then((res)=> {
       console.log("Api Updated successfully!!");
       console.log("Update Response = ", res);
@@ -128,8 +128,7 @@ const Buy = () => {
   }
 
   useEffect(() => {
-    if(location.state.pageSection === 'buy') { 
-      console.log(location)
+    if(location.state.pageSection === 'buy') {
       window.scrollTo(0, 0)
       setData(location.state.value)
       setCheckoutType(location.state.pageSection);
@@ -157,7 +156,7 @@ const Buy = () => {
         getCart();
       }
     }
-  }, [update])
+  }, [])
 
   // ****** States ******
   const [ removeButton , setRemoveButton ] = useState(false);
@@ -176,18 +175,6 @@ const Buy = () => {
     validThru: "",
     cvv: "",
   });
-
-  const showRemoveButton = (Index)=> {
-    data.map((value,key)=> {
-      console.log("Index - Key ==> ", key , " - ", Index )
-      if(Index == key) {
-        console.log("Index and Key Matched " , Index , " - " , key)
-        setGlobalRemoveKey(key)
-        setRemoveButton(!removeButton)
-        setCartItemRemove(!cartItemRemove)
-      }
-    })
-  }
 
   //  ****** Functions ******
   const handleChange = event => {

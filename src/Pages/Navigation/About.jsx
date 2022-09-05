@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Logo from '../../Assets/Images/Logos/logo.png'
 
 const About = () => {
   useEffect(()=> {
@@ -28,7 +27,7 @@ const About = () => {
             </div>
           </div>
           <div id="watermark" className='mx-14'>
-            <img src={Logo} alt="justbuyit" className="bg-white w-[80%]"/>
+            <span className="text-5xl font-lobster">Revella</span>
           </div>
         </div>
       </div>

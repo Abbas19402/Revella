@@ -7,7 +7,8 @@ module.exports = {
       fontFamily: {
         firaCode: "'Fira Code', monospace",
         concertOne: "'Concert One', cursive",
-        Lato: "'Lato', sans-serif"
+        Lato: "'Lato', sans-serif",
+        lobster: ['Lobster Two', 'cursive']
       },
     },
   },

@@ -24,10 +24,10 @@ const BestSeller = (props) => {
   // ****** API ******
   const getData = async()=> {
     const response = await axios({
-      url: "https://admin.nily.com.br/api/v2/user/homepage",
+      url: "https://fashion-admin.servepratham.com/api/v2/user/sorting/trending-product",
       method: "GET",
     })
-    const filteredArray = response.data.data.topdata.filter((item) => item.offer_price != null ) 
+    const filteredArray = response.data.data.data.filter((item) => item.offer_price != null ) 
     setData(filteredArray)
     setIsLoading(false)
 }
